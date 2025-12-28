@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Super Volume Booster</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      padding: 20px;
+      width: 340px;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+  
+    .header {
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .header-icon {
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      box-shadow: 0 8px 16px rgba(37, 99, 235, 0.3);
+      font-size: 28px;
+      color: white;
+    }
+
+    h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #94a3b8;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+  
+    .card {
+      background: rgba(30, 41, 59, 0.8);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      border-radius: 18px;
+      padding: 32px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+    }
+
+   
+    .volume-display {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .volume-label {
+      font-size: 12px;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .volume-value {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 0;
+      line-height: 1;
+    }
+
+    .volume-unit {
+      font-size: 14px;
+      color: #64748b;
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+   
+    .slider-container {
+      margin-bottom: 28px;
+    }
+
+    .slider-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .slider-label-min-max {
+      font-size: 11px;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+   
+    .slider-wrapper {
+      position: relative;
+      padding: 0 2px;
+    }
+
+    .slider-track {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6 0%, #2563eb var(--percentage), #334155 var(--percentage), #334155 100%);
+      border-radius: 2px;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 24px;
+      background: transparent;
+      border: none;
+      outline: none;
+     
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4), 0 0 0 8px rgba(37, 99, 235, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5), 0 0 0 12px rgba(37, 99, 235, 0.15);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:active {
+      transform: scale(1.25);
+      box-shadow: 0 8px 20px rgba(37, 99, 235, 0.6), 0 0 0 14px rgba(37, 99, 235, 0.2);
+    }
+
+   
+    input[type="range"]::-moz-range-thumb {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4), 0 0 0 8px rgba(37, 99, 235, 0.1);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    input[type="range"]::-moz-range-thumb:hover {
+      transform: scale(1.15);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5), 0 0 0 12px rgba(37, 99, 235, 0.15);
+    }
+
+    input[type="range"]::-moz-range-track {
+      background: transparent;
+      border: none;
+    }
+
+   
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .stat-item {
+      background: rgba(15, 23, 42, 0.4);
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .stat-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #3b82f6;
+      margin-bottom: 2px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #94a3b8;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+   
+    .footer {
+      text-align: center;
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 20px;
+      font-weight: 500;
+    }
+
+  
+    @media (max-width: 400px) {
+      body {
+        width: 100%;
+        max-width: 340px;
+      }
+
+      .volume-value {
+        font-size: 40px;
+      }
+
+      .card {
+        padding: 24px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-icon">
+        <i class="fas fa-volume-up"></i>
+      </div>
+      <h1>Volume Booster</h1>
+      <p class="subtitle">Audio Enhancement</p>
+    </div>
+
+    <div class="card">
+      <div class="volume-display">
+        <div class="volume-label">Current Level</div>
+        <h2 class="volume-value" id="value">100</h2>
+        <div class="volume-unit">% Amplification</div>
+      </div>
+
+      <div class="slider-container">
+        <div class="slider-label">
+          <span>Boost Intensity</span>
+          <span class="slider-label-min-max">100 - 1000</span>
+        </div>
+        <div class="slider-wrapper">
+          <div class="slider-track" id="sliderTrack"></div>
+          <input 
+            id="boost" 
+            type="range" 
+            min="100" 
+            max="1000" 
+            value="100" 
+            step="10"
+          >
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-item">
+          <div class="stat-value" id="multiplier">1.0x</div>
+          <div class="stat-label">Multiplier</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value" id="boost-percent">0%</div>
+          <div class="stat-label">Boost</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <i class="fas fa-shield-alt"></i> Safe audio limits applied
+    </div>
+  </div>
+
+  <script>
+    const boostSlider = document.getElementById('boost');
+    const valueDisplay = document.getElementById('value');
+    const multiplierDisplay = document.getElementById('multiplier');
+    const boostPercentDisplay = document.getElementById('boost-percent');
+    const sliderTrack = document.getElementById('sliderTrack');
+
+    function updateValue() {
+      const value = parseInt(boostSlider.value);
+      const percentage = ((value - 100) / 9) * 100;
+      const multiplier = (value / 100).toFixed(1);
+
+      valueDisplay.textContent = value;
+      multiplierDisplay.textContent = multiplier + 'x';
+      boostPercentDisplay.textContent = Math.round((value - 100) / 9) + '%';
+
+    
+      sliderTrack.style.setProperty('--percentage', percentage + '%');
+    }
+
+    boostSlider.addEventListener('input', updateValue);
+    updateValue();
+  </script>
+</body>
+</html>
